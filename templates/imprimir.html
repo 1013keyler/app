@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <script src="script.js"></script>
+    </head>
+
+    <style>
+        * {
+        font-size: 12px;
+        font-family: 'Times New Roman';
+        }
+
+
+        td.producto,
+        th.producto {
+            width: 75px;
+            max-width: 75px;
+        }
+
+        td.cantidad,
+        th.cantidad {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        td.precio,
+        th.precio {
+            width: 40px;
+            max-width: 40px;
+            word-break: break-all;
+        }
+
+        .centrado {
+            text-align: center;
+            align-content: center;
+        }
+
+        .ticket {
+            width: 155px;
+            max-width: 155px;
+        }
+
+        img {
+            max-width: inherit;
+            width: inherit;
+        }
+
+        h2{
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        img{
+            height: 90px;
+            width: 90px;
+            margin-left: 35px;
+            opacity: 1;
+        }
+
+        td,
+        th,
+        tr,
+        table {
+            border-top: 1px solid black;
+            border-collapse: collapse;
+        }
+
+    </style>
+
+    <body>
+        <div class="ticket">
+            <table>
+                <img src="{{url_for('static', filename="/img/logo.png")}}" alt="">
+                <br><br>
+                <h2>{{name}}</h2>
+                <thead>
+                    <tr>
+                        <th>CANT</th>
+                        <th>PRODUCTO</th>
+                        <th>$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for i in ticket:%}
+                        <tr>
+                            <td>{{i[1]}}</td>
+                            <td>{{i[0]}}</td>
+                            <td>{{'${:,.3f}'.format(i[2]*i[1])}}</td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <br>
+            {% if details != '':%}
+                <b>DETALLES: </b>{{details}}
+            {%endif%}
+            <br>
+            <b>TOTAL ${{'{:,.3f}'.format(pt)}}</b>
+        </div>
+        <script>
+            function imprimir(){
+                window.print();
+            }
+            
+            function volver(){
+                location.href="/inicio";
+            }
+            
+            setTimeout(imprimir, 0);
+            setTimeout(imprimir, 5000);
+            setTimeout(volver, 5000);
+        </script>
+    </body>
+</html>

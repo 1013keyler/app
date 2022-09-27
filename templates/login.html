@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename="css/style.css")}}">
+	<title>{%block titulo%}Login{%endblock%}</title>
+</head>
+<body class="bg-login">
+	<form class="formulario" action="/login" method="POST" accept-charset="utf-8">
+		<div class="login">
+	        <img class="logo" src="{{url_for('static', filename="img/logo.png")}}">
+	        <label for="username">
+	        	<img class="user" src="{{url_for('static', filename="img/usuario.png")}}" alt="">
+	        </label>
+	        <input value="" class="entrada-login" type="text" name="username" id="username" placeholder="Usuario"/>
+	        <label for="password">
+	        	<img class="pass" src="{{url_for('static', filename="img/candado.png")}}" alt="">
+	        </label>
+	        <input value="" class="entrada-login" type="password" name="password" id="password" placeholder="Constraseña"/>
+	        <button class="ingresar" type="submit" value="ingresar" name="ingresar">INGRESAR</button>
+		</div>
+	</form>
+</body>
+</html>

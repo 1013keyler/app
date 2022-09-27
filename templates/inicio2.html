@@ -1,0 +1,81 @@
+{%extends './plantilla.html'%}
+{%block titulo%}PIZZERIA{%endblock%}
+{%block body%}
+<header class="encabezado">
+    <nav class="barra">
+        <ul class="list">
+            <div class="img">
+                <img class="logo" src="{{url_for('static', filename="img/logo.png")}}" alt="Logo" hrf="inicio.html"/>
+            </div>
+            <div class="links">
+                <li class="item-list"><a href="/inicio">CERRAR SESION</a></li>
+                <li class="item-list"><a href="/ventas">VENTAS</a></li>
+            </div>
+        </ul>
+    </nav>
+</header>
+<div class="listaRentassdiv">
+    <form class="listaRentas-form" action="/listaRentas" method="POST" accept-charset="utf-8">
+        <section class="listaRentas">
+            <input class="entrada" type="text" name="vehiculo" id="vehiculo" placeholder="VEHICULO"/>
+            <input class="entrada" type="number" name="dias" id="dias" placeholder="DIAS DE RENTA"/>
+            <input class="entrada" type="text" name="name" id="mane" placeholder="NOMBRE CLIENTE"/>
+            <input class="entrada" type="number" name="documento" id="documento" placeholder="N° DOCUMENTO" />
+            <label for="horar">HORA ENTREGA:</label>
+            <input class="entrada" type="time" name="horar" id="horar"/>
+            <label for="horae">HORA DEVOLUCIÓN:</label>
+            <input class="entrada" type="time" name="horae" id="horae"/>
+            <label for="diar">DIA ENTREGA:</label>
+            <input class="entrada" type="date" name="diar" id="diar"/>
+            <label for="diae">DIA DEVOLUCIÓN:</label>
+            <input class="entrada" type="date" name="diae" id="diae" />
+            <input class="entrada" type="number" name="monto" id="monto", placeholder="MONTO A PAGAR $"/>
+            <button class="submit" type="submit">REGISTRAR</button>
+            <button class="reset" type="reset">CANCELAR</button>
+        </section>
+    </form>
+</div>
+<div class="informacion">
+    <ul class="date">
+        <li class="fecha">FECHA: {{fecha}}</li>
+        <li class="hora">HORA: {{hora}}</li>
+    </ul>
+</div>
+<div class="cuerpotable">
+    <table border="0" class="cabeza">
+        <thead class="atributos">
+            <tr>
+                <td>ID</td>
+                <td>VEHICULO</td>
+                <td>DIAS</td>
+                <td>NOMBRE CLIENTE</td>
+                <td>DOCUMENTO</td>
+                <td>HORA ENTREGA</td>
+                <td>HORA DEVOLUCIÓN</td>
+                <td>DIA ENTREGA</td>
+                <td>DIA DEVOLUCIÓN</td>
+                <td>MONTO</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listaRentas in listaRentas%}
+                <tr>
+                    <form class="acciones" method="POST" action="/edicion">
+                        <td><input class="datoid" type="text" readonly="readonly" name="id" value="{{listaRentas.0}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="vehiculo" value="{{listaRentas.1}}" /></td>
+                        <td><input class="datou" type="text" readonly="readonly" name="dias" value="{{listaRentas.2}}" /></td>
+                        <td><input class="daton" type="text" readonly="readonly" name="name" value="{{listaRentas.3}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="documento" value="{{listaRentas.4}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="horar" value="{{listaRentas.5}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="horae" value="{{listaRentas.6}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="diar" value="{{listaRentas.7}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="diae" value="{{listaRentas.8}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="monto" value="{{listaRentas.9}}" /></td>
+                        <td ><button class="submit" type="submit" name="editar">EDITAR</button><button class="reset" type="submit" name="eliminar">ELIMINAR</button></td>
+                    </form>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock%}

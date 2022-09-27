@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename="css/style.css")}}">
+	<title>{%block titulo%}Estadisticas{%endblock%}</title>
+</head>
+<body>
+	<header class="navegacion">
+		<div class="elementos">
+			<ul class="herramientas">
+				<li class="herramienta"><a href="/inicio"><img class="icon-bar-home" src="{{url_for('static', filename="img/home.png")}}" alt="">inicio</a></li>
+				<li class="herramienta"><a href="/pedidos"><img class="icon-bar-home" src="{{url_for('static', filename="img/empleados.png")}}" alt=""> pedidos</a></li>
+				<li class="herramienta"><a href="/signup"><img class="icon-bar-pen" src="{{url_for('static', filename="img/registrar.png")}}" alt=""> registrar</a></li>
+				<li class="herramienta"><a href="/estadisticas"><img class="icon-bar" src="{{url_for('static', filename="img/grafico.png")}}" alt=""> administrar</a></li>
+				<li class="herramienta"><button type="submit" class="cerrar"><a href="/cerrar_sesion">cerrar sesion</a></button></li>
+			</ul>
+		</div>
+	</header>
+	{%block body%}
+		<div class="estadisticas">
+			<div class="deben">
+				<h2 class="info-venta-credi">creditos</h2>
+				<hr class="notas">
+				{% for i in deben:%}
+					<form action="/borrar" method="POST">
+						<b>Cliente:</b> <input name="cliente" type="text" class="total" value="{{i.0}}"> ... <b>Debe:</b> <p class="valor">{{'${:,.3f}'.format(i[1])}}</p>
+						<button class="eliminar">Eliminar</button>
+					</form>
+					<hr class="separador">
+					<br>
+				{%endfor%}
+			</div>
+			<div class="empleados">
+				<h2 class="info-venta-credi">trabajadores</h2>
+				<hr>
+				{%for i in trabajadores:%}
+					{%if i.0 != 'sorlenys':%}
+						<form action="/reiniciar_borrar" method="POST">
+							<p class="vendido"><b>Trabajador:</b> <input name="trabajador" type="text" class="total" value="{{i.0}}"></p>
+							<p class="vendido"><b>Vendido: </b>{{'${:,.3f}'.format(i[1])}}</p>
+							<button name="eliminar" class="eliminar">Eliminar</button>
+							<button name="reiniciar" class="eliminar">reiniciar</button>
+						</form>
+						<hr class="separador">
+						<br>
+					{%endif%}
+				{%endfor%}
+			</div>
+			<div class="informe">
+				<div class="informe_c">
+					<h2 class="info-venta">informe</h2>
+					<p class="info-venta-p">MES ACTUAL: ${{'{:,.3f}'.format(informe)}}
+						<br>
+						<br>
+						Venta Hoy: ${{'{:,.3f}'.format(venta_hoy)}}
+						<br>
+						<br>
+						Gastos Hoy: ${{'{:,.3f}'.format(gasto)}}
+						<br><br>
+						Ganancia Neta: ${{'{:,.3f}'.format(venta_hoy - gasto)}}
+						<br><br>
+						<form action="/vitacora" method="GET">
+							<button class="historial">VER HISTORIAL</button>
+						</form>
+					</p>
+					<br>
+				</div>
+				<br>
+				<div class="informe_d">
+					<h2 class="info-venta">DÍA QUE MÁS VENDIÓ</h2>
+					<p class="info-venta-p">{{diaMas[3]}}/{{diaMas[1]}}/{{diaMas[0]}}: {{'${:,.3f}'.format(diaMas[2])}}</p>
+					<br>
+				</div>
+				<br>
+				<div class="informe_e">
+					<h2 class="info-venta">DÍA QUE MENOS VENDIÓ</h2>
+					<p class="info-venta-p">{{diaMenos[3]}}/{{diaMenos[1]}}/{{diaMenos[0]}}: {{'${:,.3f}'.format(diaMenos[2])}}</p>
+					<br>
+				</div>
+				<br>
+				<div class="informe_f">
+					<h2 class="info-venta">productos más vendido</h2>
+					<p class="info-venta-p">{{producto_mas[0]}}</p>
+					<br>
+				</div>
+				<br>
+				<div class="informe_g">
+					<h2 class="info-venta">producto menos vendido</h2>
+					<p class="info-venta-p">{{producto_menos[0]}}</p>
+					<br>
+				</div>
+				<br>
+				<div class="informe_h">
+					<h2 class="info-venta">Productos restantes</h2>
+					{%for i in inventario_final%}
+						<p class="info-venta-p">quedan {{i[2]}} {{i[1]}}</p>
+						<br>
+					{%endfor%}
+					<br>
+				</div>
+				<br>
+			</div>
+		</div>
+	{%endblock%}
+	
+</body>
+</html>

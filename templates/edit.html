@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .no_div{
+        background: rgb(76, 241, 159, 0.7);
+        color: #fff;
+        height: 15vh;
+        width: 20vw;
+        text-align: center;
+        border-radius: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .cerrar:checked ~ .no_div{
+        transform: scale(0.0);
+        transition: all 1s ease;
+    }
+
+    @keyframes aparecerBoton{
+        from{
+            height: 0px;
+            width: 0px;
+        }
+        
+        to{
+            height: 50px;
+            width: 200px;
+        }
+    }
+
+    .l_c{
+        margin-left: 93%;
+        margin-top: 10px;
+    }
+
+    .l_c:hover{
+        background-color: rgb(149, 211, 177);
+        border-radius: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+        transition: all 1s ease;
+    }
+
+</style>
+
+<body>
+    <div class="mayor">
+        <input class="cerrar" type="checkbox" name="" id="cerrar">
+        <div class="no_div">
+            <label class="l_c" for="cerrar">x</label>
+            <br><br>
+            <div class="mensaje">
+                {{mensaje}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% extends "plantilla.html"%}
+{%block titulo%}Inicio{%endblock%}
+	{%block body%}
+        <div class="contenido">
+            <div class="comercial">
+                <div class="producto">
+                    <div class="espacio-logo">
+                        <img src="{{url_for('static', filename="img/logo.png")}}" alt="" class="logo-inicio">
+                    </div>
+                    <div class="producto-agregar">
+                        <form class="listaRentas-form" action="/listaRentas" method="POST" accept-charset="utf-8">
+                            <section class="listaRentas">
+                                <input list="productos" class="entrada" type="text" name="producto" id="producto" placeholder="PRODUCTO" required/>
+                                <datalist id="productos">
+                                    {%for i in lista_productos:%}
+                                        <option value="{{i[0]}}"></option>
+                                    {%endfor%}
+                                </datalist>
+                                <input class="entrada-login" type="number" value="1" name="unidades" autocomplete="off">
+                                <button class="agregar" type="submit">REGISTRAR</button>
+                                <button class="limpiar" type="reset">CANCELAR</button>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+                <div class="carrito">
+                    <h2 class="car">CARRITO BACANO</h2>
+                    <div class="productos-en-carro">
+                        <div >
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <td class="cabe">Producto</td>
+                                        <td class="cabe">valor</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for producto in productos%}
+                                        <tr>
+                                            <td class="nombre_pro">{{producto[0]}}
+                                                {%if producto[1] != 1:%}
+                                                    x{{producto[1]}}
+                                                {%endif%}
+                                            </td>
+                                            <td class="precio_pro">{{'${:,.3f}'.format(producto[2]*producto[1])}}</td>
+                                        </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="global">
+                        <form action="/pagar" method="POST">
+                            <h3 class="valor-pagar">total: $ <input type="number" class="total" readonly="False" id="total_pagar" name="total_pagar" value="{{'{:,.3f}'.format(pagar)}}"></h3>
+                            <h2>Cliente:<input autocomplete="off" type="text" class="cliente" name="cliente" id="cliente" placeholder="Cliente" required></h2>
+                            <h2>Crédito: <input type="radio" name="pago" value="si" id="si" class="filtro">
+                                <label for="si"><b>SI   </b></label>
+                                <input type="radio" name="pago" id="no" value="no" class="filtro" checked>
+                                <label for="no"><b>NO</b></label></h2>
+                            <br>
+                            <h2>LLEVAR: <input class="filtro" type="radio" name="llevar" id="llevar" value="si">
+                                <label for="llevar">SI</label>
+                                <input class="filtro" type="radio" name="llevar" id="no_llevar" value="no" checked >
+                                <label for="no_llevar">NO</label>
+                            </h2>
+                            <br>
+                            <h2>DETALLES: <input name="detalles" class="detalles" type="text" autocomplete="off"></h2>
+                            <button class="pagar">pagar</button>
+                        </form>
+                        <form action="/reiniciar_carrito">
+                            <button class="limpiar_carrito">limpiar carrito</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="usuario">
+                <div class="nombre">
+                    <h2 class="nombre-usuario">{{usuariodata[1]}}</h2>
+                </div>
+                <div class="avatar">
+                    {%if usuariodata[2] in ['masculino', 'Masculino', 'MACULINO']%}
+                        <img src="{{url_for('static', filename="/img/male.svg")}}" alt="" class="img-avatar">
+                    {%else%}
+                        <img src="{{url_for('static', filename="/img/female.svg")}}" alt="" class="img-avatar">
+                    {%endif%}
+                </div>
+                <hr class="division">
+                <div class="registros">
+                    <h2 class="info-venta">VENTAS HOY: {{'${:,.3f}'.format(ventas_hoy)}}</h2>
+                    <p class="fecha"> <b>fecha:</b> {{fecha}}</p>
+                    <br>
+                    <h2 class="info-venta">VENTAS GLOBALES</h2>
+                    <h2 class="info-venta">{{'${:,.3f}'.format(ventas)}}</h2>
+                    <br>
+                </div>
+            </div>
+        </div>
+	{%endblock%}

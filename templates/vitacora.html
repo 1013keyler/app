@@ -1,0 +1,43 @@
+{% extends "estadisticas.html"%}
+{%block titulo%}Historial{%endblock%}
+	{%block body%}  
+            <div class="contenido">
+                <div class="pedidos">
+                    <h2 class="hp">HISTORIAL</h2>
+                    <div class="contenedor_de_pedidos">
+                        {%for i in historial:%}
+                            <div class="unpedido">
+                                <h2 class="numero">{{i[0]}}</h2><h2 class="name"></h2>
+                                <br>
+                                Ventas: {{'${:,.3f}'.format(i[1])}}
+                                <br><br>
+                                Gastos: {{'${:,.3f}'.format(i[2])}}
+                                <br><br>
+                                Ganancia Neta: {{'${:,.3f}'.format(i[1]-i[2])}}
+                                <br><br>
+                            </div>
+                        {%endfor%}
+                    </div>
+                </div>
+                <div class="usuario">
+                    <div class="nombre">
+                        <h2 class="nombre-usuario">{{usuariodata[0][1]}}</h2>
+                    </div>
+                    <div class="avatar">
+                        {%if usuariodata[2] in ['masculino', 'Masculino', 'MACULINO']%}
+                            <img src="{{url_for('static', filename="/img/male.svg")}}" alt="" class="img-avatar">
+                        {%else%}
+                            <img src="{{url_for('static', filename="/img/female.svg")}}" alt="" class="img-avatar">
+                        {%endif%}
+                    </div>
+                    <hr class="division">
+                    <div class="registros">
+                        <h2 class="info-venta"></h2>
+                        <p class="fecha"> <b></b></p>
+                        <br>
+                        <h2 class="info-venta"></h2>
+                        <h2 class="info-venta"></h2>
+                    </div>
+                </div>
+            </div>
+    {%endblock%}

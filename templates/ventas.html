@@ -1,0 +1,51 @@
+{%extends './plantilla.html'%}
+{%block title%}EDITAR{%endblock%}
+{%block body%}
+<header class="encabezado">
+    <nav class="barra">
+        <ul class="list">
+            <div class="img">
+                <img class="logo" src="{{url_for('static', filename="img/logo.png")}}" alt="Logo" hrf="inicio.html"/>
+            </div>
+            <div class="links">
+                <li class="item-list"><a href="/inicio">CERRAR SESION</a></li>
+                <li class="item-list"><a href="/ventas">VENTAS</a></li>
+            </div>
+        </ul>
+    </nav>
+</header>
+<div class="informacion">
+    <ul class="date">
+        <li class="cantidadlistaRentass">Cantidad: {{cantidadlistaRentas}}</li>
+        <li class="hora">Ganancias: {{gananciasT}}</li>
+    </ul>
+</div>
+<div class="cuerpotable">
+    <table border="0" class="cabeza">
+        <thead class="atributos">
+            <tr>
+                <td>ID</td>
+                <td>PRODUCTO</td>
+                <td>UNIDADES</td>
+                <td>NOMBRE CLIENTE</td>
+                <td>VALOR</td>
+                <td>ACCIONES</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for listaPedido in listaRentas%}
+                <tr>
+                    <form class="acciones" method="POST" action="/edicion">
+                        <td><input class="datoid" type="text" readonly="readonly" name="id" value="{{listaPedido.0}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="producto" value="{{listaPedido.1}}" /></td>
+                        <td><input class="datou" type="text" readonly="readonly" name="unidades" value="{{listaPedido.2}}" /></td>
+                        <td><input class="daton" type="text" readonly="readonly" name="name" value="{{listaPedido.3}}" /></td>
+                        <td><input class="dato" type="text" readonly="readonly" name="valor" value="{{listaPedido.4}}" /></td>
+                        <td ><button class="submit" type="submit" name="editar">EDITAR</button><button class="reset" type="submit" name="eliminar">ELIMINAR</button></td>
+                    </form>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

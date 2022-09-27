@@ -1,0 +1,62 @@
+{% extends "estadisticas.html"%}
+{%block titulo%}Inicio{%endblock%}
+	{%block body%}
+		<div class="fondo">
+			<form class="formulario" action="/signup" method="POST" accept-charset="utf-8">
+				<div class="signup">
+					<img class="logo" src="{{url_for('static', filename="img/logo.png")}}">
+					<input class="entrada-login" type="text" name="name" id="mane" placeholder="Nombre"/>
+					<input class="entrada-login" type="text" name="username" id="username" placeholder="Usuario"/>
+					<input class="entrada-login" type="password" name="password" id="password" placeholder="Constraseña"/>
+					<input class="entrada-login" type="text" name="sexo" id="sexo" placeholder="Sexo"/>
+					<button class="terminar-registrar" type="submit" value="registrar" name="registrar">REGISTRAR</button>
+				</div>
+			</form>
+			<div class="gasto">
+				<br>
+				<h2>GASTOS</h2>
+				<br><br><br><br>
+				<form action="/gasto" method="POST">
+					<input type="text" name="motivo_gasto" class="entrada-login" placeholder="Motivo de Gasto">
+					<input type="number" name="valor_gasto" id="" class="entrada-login" placeholder="Monto $">
+					<button type="submit" class="registrar-gasto">REGISTRAR GASTO</button>
+					<br><br>
+					Recuerde que en esta sección se realizan registros solamente de gastos, como:
+					<br><br>
+					<li>Pago de empleados</li>
+					<li>Compra de utencilios</li>
+					<li>Pago de servicios</li>
+					<li>Compra de articulos para el local</li>
+				</form>
+			</div>
+			<div class="inventario">
+				<br>
+				<h2>INVENTARIO</h2>
+				<br><br><br><br>
+				<form action="/inventario" method="POST">
+					<input list="productos" type="text" name="producto" class="entrada-login" placeholder="Producto Comprado">
+					<datalist id="productos">
+						{%for i in lista_productos:%}
+							<option value="{{i[0]}}"></option>
+						{%endfor%}
+					</datalist>
+					<input type="number" name="unidades_compra" id="" class="entrada-login" placeholder="Unidades Compradas">
+					<button type="submit" class="registrar-gasto">ENVIAR INVENTARIO</button>
+					<br><br>
+					En este apartado sólo se deben registrar el ingreso de productos por unidades, como:
+					<br><br>
+					<li>Botellas de agua</li>
+					<li>Gaseosas</li>
+				</form>
+			</div>
+		</div>
+		<div class="producto_nuevo">
+			<div class="formulario_nuevo">
+				<form action="/agregar_producto" method="POST">
+					<input type="text" name="producto" class="entrada_p" placeholder="Producto a agregar">
+					<input type="number" name="valor_producto" id="" class="valor_producto" placeholder="$Valor sin puntos ni comas">
+					<button type="submit" class="registrar-producto">REGISTRAR PRODUCTO</button>
+				</form>
+			</div>
+		</div>
+{%endblock%}
